@@ -72,7 +72,12 @@ WSGI_APPLICATION = 'quiz_app.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db(),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'quiz_app',
+        'USER': 'midumbi',
+    'PASSWORD':'midumbi',
+    }
 }
 
 # Internationalization
