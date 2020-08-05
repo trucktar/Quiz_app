@@ -1,13 +1,17 @@
-from django.test import TestCase
+import json
+from django.contrib.auth.models import User
 from django.urls import reverse
-from quiz_app.api.models import User
-from quiz_app.api.views import SignupAPIView
-from authentication.utils import generate_token
+from rest_framework.authtoken.models import Token
+from rest_framework.test import APITestCase
+from rest_framework import status
+from api.models import User
+from api.serializers import SignupSerializer
+
 
 class BaseTest(TestCase):
     def setUp(self):
-        self.signup_url=reverse('signup')
-        self.login_url=reverse('login')
+        self.signup_url=reverse('SignupAPIView')
+        self.login_url=reverse('LoginAPIView')
         self.user={
             'email':'testemail@gmail.com',
             'username':'username',

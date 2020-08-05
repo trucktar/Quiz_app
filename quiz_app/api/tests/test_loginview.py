@@ -1,37 +1,25 @@
-from django.test import TestCase
-from django.urls import reverse
-from quiz_app.api.models import User
-from quiz_app.api.views import LoginAPIView, SignupAPIView
-from authentication.utils import generate_token
-# Create your tests here.
+# from django.test import TestCase
+# from quiz_app.api.models import User
+# from quiz_app.api.views import LoginAPIView, SignupAPIView
 
-class BaseTest(TestCase):
-    def setUp(self):
-        self.signup_url=reverse('signup')
-        self.login_url=reverse('login')
-        self.user={
-            'email':'testemail@gmail.com',
-            'username':'username',
-            'first_name':'first',
-            'last_name':'last',
-            'password':'password'
-        }
-       
-        self.user_unmatching_password={
+# # Create your tests here.
 
-            'email':'testemail@gmail.com',
-            'username':'username',
-            'first_name':'first',
-            'last_name':'last',
-            'password':'pssword'
-        }
+# class LoginAPIViewTest(TestCase):
 
-        self.user_invalid_email={
-            
-            'email':'test.com',
-            'username':'username',
-            'first_name':'first',
-            'last_name':'last',
-            'password':'password'
-        }
-        return super().setUp()
+#     def setUp(self):
+#         self.user1 = User.objects.create(id=1, email='jorim.webdev@gmail.com', password='moringa81')
+
+#     def tearDown(self):
+#         self.user1.delete()
+
+#     def test_correct(self):
+#         response = self.client.post('/login/', {'email': 'jorim.webdev@gmail.com', 'password': 'moringa81'})
+#         self.assertTrue(response.data['authenticated'])
+
+#     def test_wrong_email(self):
+#         response = self.client.post('/login/', {'email': 'wrong@example.com', 'password': 'moringa81'})
+#         self.assertFalse(response.data['authenticated'])
+
+#     def test_wrong_password(self):
+#         response = self.client.post('/login/', {'email': 'jorim.webdev@gmail.com', 'password': 'wrong'})
+#         self.assertFalse(response.data['authenticated'])
