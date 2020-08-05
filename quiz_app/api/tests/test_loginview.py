@@ -1,26 +1,37 @@
 from django.test import TestCase
+from django.urls import reverse
+from quiz_app.api.models import User
 from quiz_app.api.views import LoginAPIView, SignupAPIView
 from authentication.utils import generate_token
 # Create your tests here.
 
-class LoginAPIViewTest(TestCase):
-
+class BaseTest(TestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create_user(email='jorim.webdev@gmail.com',
-                                                         password='moringa81'
-                                                         )
+        self.signup_url=reverse('signup')
+        self.login_url=reverse('login')
+        self.user={
+            'email':'testemail@gmail.com',
+            'username':'username',
+            'first_name':'first',
+            'last_name':'last',
+            'password':'password'
+        }
+       
+        self.user_unmatching_password={
 
-    def tearDown(self):
-        self.user.delete()
+            'email':'testemail@gmail.com',
+            'username':'username',
+            'first_name':'first',
+            'last_name':'last',
+            'password':'pssword'
+        }
 
-    def test_correct(self):
-        response = self.client.post('auth/login/', {'email': 'jorim.webdev@gmail.com', 'password': 'moringa81'})
-        self.assertTrue(response.data['authenticated'])
-
-    def test_wrong_email(self):
-        response = self.client.post('auth/login/', {'email': 'wrong@gmail.com', 'password': 'moringa81'})
-        self.assertFalse(response.data['authenticated'])
-
-    def test_wrong_password(self):
-        response = self.client.post('auth/login/', {'email': 'jorim.webdev@gmail.com', 'password': 'wrong'})
-        self.assertFalse(response.data['authenticated'])
+        self.user_invalid_email={
+            
+            'email':'test.com',
+            'username':'username',
+            'first_name':'first',
+            'last_name':'last',
+            'password':'password'
+        }
+        return super().setUp()
