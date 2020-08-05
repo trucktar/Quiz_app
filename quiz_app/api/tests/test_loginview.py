@@ -1,25 +1,17 @@
-# from django.test import TestCase
-# from quiz_app.api.models import User
-# from quiz_app.api.views import LoginAPIView, SignupAPIView
+import json
 
-# # Create your tests here.
+from django.contrib.auth.models import User
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.test import APITestCase
 
-# class LoginAPIViewTest(TestCase):
+from quiz_app.api.models import User
+from quiz_app.api.serializers import LoginSerializer
 
-#     def setUp(self):
-#         self.user1 = User.objects.create(id=1, email='jorim.webdev@gmail.com', password='moringa81')
 
-#     def tearDown(self):
-#         self.user1.delete()
-
-#     def test_correct(self):
-#         response = self.client.post('/login/', {'email': 'jorim.webdev@gmail.com', 'password': 'moringa81'})
-#         self.assertTrue(response.data['authenticated'])
-
-#     def test_wrong_email(self):
-#         response = self.client.post('/login/', {'email': 'wrong@example.com', 'password': 'moringa81'})
-#         self.assertFalse(response.data['authenticated'])
-
-#     def test_wrong_password(self):
-#         response = self.client.post('/login/', {'email': 'jorim.webdev@gmail.com', 'password': 'wrong'})
-#         self.assertFalse(response.data['authenticated'])
+class LoginTestCase(APITestCase):
+    def test_login(self):
+        data = {"email":"test@localhost.app","password":"some_strong_psw"}
+        response = self.client.post("/auth/login/", data)
+        self.assertTrue(response.status_code, status.HTTP_200_OK)
